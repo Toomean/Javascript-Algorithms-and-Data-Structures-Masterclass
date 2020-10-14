@@ -5,8 +5,8 @@ type AdjacencyList = {
 interface IGraph<T> {
     readonly adjacencyList: AdjacencyList;
 
-    addVertext(vertext: string): IGraph<T>;
-    addEdge(vertextOne: string, vertextTwo: string): IGraph<T>;
+    addVertex(vertex: string): IGraph<T>;
+    addEdge(vertexOne: string, vertexTwo: string): IGraph<T>;
     removeEdge(vertexOne: string, vertexTwo: string): IGraph<T>;
     removeVertex(vertex: string): IGraph<T>;
 }
@@ -14,7 +14,7 @@ interface IGraph<T> {
 class Graph<T> implements IGraph<T> {
     readonly adjacencyList: AdjacencyList = {};
 
-    addVertext( vertex: string ) {
+    addVertex( vertex: string ) {
         const vertexFound = this.adjacencyList[ vertex ];
 
         if ( !vertexFound ) {
@@ -24,25 +24,25 @@ class Graph<T> implements IGraph<T> {
         return this;
     }
 
-    addEdge( vertextOne: string, vertextTwo: string ) {
-        this.adjacencyList[ vertextOne ].push( vertextTwo );
-        this.adjacencyList[ vertextTwo ].push( vertextOne );
+    addEdge( vertexOne: string, vertexTwo: string ) {
+        this.adjacencyList[ vertexOne ].push( vertexTwo );
+        this.adjacencyList[ vertexTwo ].push( vertexOne );
 
         return this;
     }
 
-    removeEdge( vertextOne: string, vertextTwo: string ) {
-        this.adjacencyList[ vertextOne ] = this.adjacencyList[ vertextOne ].filter( connection => connection !== vertextTwo );
-        this.adjacencyList[ vertextTwo ] = this.adjacencyList[ vertextTwo ].filter( connection => connection !== vertextOne );
+    removeEdge( vertexOne: string, vertexTwo: string ) {
+        this.adjacencyList[ vertexOne ] = this.adjacencyList[ vertexOne ].filter( connection => connection !== vertexTwo );
+        this.adjacencyList[ vertexTwo ] = this.adjacencyList[ vertexTwo ].filter( connection => connection !== vertexOne );
 
         return this;
     }
 
     removeVertex( vertex: string ) {
         while( this.adjacencyList[vertex].length ) {
-            const adjacentVertext = this.adjacencyList[ vertex ].pop()!;
+            const adjacentVertex = this.adjacencyList[ vertex ].pop()!;
 
-            this.removeEdge( vertex, adjacentVertext );
+            this.removeEdge( vertex, adjacentVertex );
         }
 
         delete this.adjacencyList[ vertex ];
@@ -127,12 +127,12 @@ class Graph<T> implements IGraph<T> {
 
 const graph = new Graph();
 
-graph.addVertext("A");
-graph.addVertext("B");
-graph.addVertext("C");
-graph.addVertext("D");
-graph.addVertext("E");
-graph.addVertext("F");
+graph.addVertex("A");
+graph.addVertex("B");
+graph.addVertex("C");
+graph.addVertex("D");
+graph.addVertex("E");
+graph.addVertex("F");
 
 graph.addEdge("A", "B");
 graph.addEdge("A", "C");
